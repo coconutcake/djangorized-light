@@ -1,0 +1,47 @@
+version: "3"
+
+services:
+  djapp_django:
+    build: 
+      context: .
+      dockerfile: ./dockerfiles/python/Dockerfile
+    container_name: ${DJANGO_CONTAINER_NAME}
+    ports:
+      - ${DJANGO_IPORT}:${DJANGO_OPORT}
+    volumes:
+      - ./app:/app
+      - ./logs:/logs
+    environment:
+      - DJANGO_CONTAINER_NAME=${DJANGO_CONTAINER_NAME}
+      - DJANGO_IPORT=${DJANGO_IPORT}
+      - DJANGO_OPORT=${DJANGO_OPORT}
+      - DJANGO_LANGUAGE_CODE=${DJANGO_LANGUAGE_CODE}
+      - DJANGO_TIMEZONE=${DJANGO_TIMEZONE}
+      - DJANGO_SWAGGER_SERVER=${DJANGO_SWAGGER_SERVER}
+      - DJANGO_SWAGGER_REQUEST=${DJANGO_SWAGGER_REQUEST}
+      - DB_ENGINE=${DB_ENGINE}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_ADDRESS=${DB_ADDRESS}
+      - DB_IPORT=${DB_IPORT}
+      - DB_OPORT=${DB_OPORT}
+      - DB_TESTS=${DB_TESTS}
+    command: >
+      python3 .././python-entrypoint.py
+    depends_on:
+      - djapp_postgres
+
+
+  djapp_postgres:
+    image: postgres:alpine3.15
+    container_name: ${DB_CONTAINER_NAME}
+    restart: always
+    environment:
+      - POSTGRES_DB=${DB_NAME}        
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    ports:
+        - ${DB_IPORT}:${DB_OPORT}
+    volumes:             
+        - ./initial/db:/docker-entrypoint-initdb.d

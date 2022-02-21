@@ -1,0 +1,4 @@
+/git
+/app/core/migrations/*
+/initenv
+/logs/*

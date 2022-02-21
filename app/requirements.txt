@@ -1,0 +1,11 @@
+Django
+djangorestframework
+requests==2.27.0
+openpyxl==3.0.5
+django-mathfilters==1.0.0
+django-filter==2.4.0
+python-dateutil==2.8.1
+drf-yasg == 1.20.0
+celery==5.2.3
+redis
+tzdata
