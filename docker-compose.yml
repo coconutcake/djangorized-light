@@ -43,5 +43,5 @@ services:
       - POSTGRES_PASSWORD=${DB_PASSWORD}
     ports:
         - ${DB_IPORT}:${DB_OPORT}
-    volumes:             
-        - ./initial/db:/docker-entrypoint-initdb.d
+    # volumes:             
+    #     - ./initial/db:/docker-entrypoint-initdb.d
