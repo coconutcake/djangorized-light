@@ -2,3 +2,4 @@
 /app/core/migrations/*
 /initenv
 /logs/*
+/app/static
